@@ -5,9 +5,11 @@ import random
 
 
 # 单词池参数，生成单词表时从每个池子取多少单词
-num_from_unviewed = 10
-num_from_to_review = 10
-num_from_learnt = 3
+num_from_unviewed = 10  # 尚未看过
+num_from_to_review = 10  # 待复习 (看到后感觉记不住，需要之后复习)
+num_from_learnt = 3  # 已经记住
+# 来源词库，使用前修改，文件名不含 .json 扩展名
+dict_source = ['CET6_3']
 
 
 def init():
@@ -16,8 +18,7 @@ def init():
 	'''
 	original_dict = {}
 	unviewed_dict = {}
-	source = ['CET6_3']  # 来源词库，使用前修改，文件名不含 .json 扩展名
-	for s in source:
+	for s in dict_source:
 		with open('selected/'+s+'.json', 'r') as f:
 			for word in f.readlines():
 				data = json.loads(word)
@@ -152,7 +153,7 @@ if sys.argv[1] == 'get':
 		f.write(word_sheet)
 	with open('word_sheet/feed_back', 'w') as f:
 		f.write(feed_back)
-	with open('word_sheet/.ref', 'w') as f:
+	with open('active/.ref', 'w') as f:
 		f.write(ref)
 
 
@@ -161,7 +162,7 @@ if sys.argv[1] == 'set':
 	# 修改单词池
 
 	with open('word_sheet/feed_back', 'r') as f_feed_back:
-		with open('word_sheet/.ref', 'r') as f_ref:
+		with open('active/.ref', 'r') as f_ref:
 			feed_back = csv.reader(f_feed_back)
 			ref = csv.reader(f_ref)
 			for line, keys in zip(feed_back, ref):

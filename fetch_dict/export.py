@@ -43,6 +43,6 @@ for i in bookLists:
 
 print( export )
 
-with open("./export.txt",'w',encoding='UTF-8') as f:
+with open("./export.md",'w',encoding='UTF-8') as f:
     f.write( export );
     f.close

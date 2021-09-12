@@ -2,6 +2,55 @@
 
 Crawl from "X 道背单词(app)"
 
+## 概述
+本项目提供一站式的背单词解决方案，使用体验比较 raw，适合不喜欢花里胡哨的 app 的程序员。  
+约定一些用词：  
+单词库，表示拥有完整信息的词典，比如新东方六级词汇书，在整个生命周期中是静态的  
+单词池，仅记录可以从单词库中查到完整信息的 key，经常修改  
+单词表，以人类可阅读的方式生成，包含一部分单词的信息，用于背单词  
+
+## 项目结构
+- active: 单词池
+- fetch_dict: 爬取单词库所用的脚本
+- selected: 将你想要背的单词库放在这里
+- word_sheet: 生成的单词表和回执
+- main.py
+- README.md
+
+## 使用方法
+### 爬取单词库
+进入 fetch_list 目录  
+按顺序执行：getBookId.py, download.py, export.py  
+爬取结果在 export.md 中进行展示  
+### 单词池初始化
+选择想要背的单词库，将 .json 文件解压到 selected 目录下  
+修改 main.py 头部的全局设置：  
+源单词库，注意文件名不需要包含扩展名 (.json) 部分  
+执行  
+```bash
+python3 main.py init
+```
+
+### 生成单词表并背诵
+##### 生成单词表
+执行  
+```bash
+python3 main.py get
+```
+随后，你可以在 word_sheet/word_sheet 中看到新鲜出炉的单词表  
+你可以在 main.py 的头部找到全局设置，修改生成时从每个单词池取词的数量  
+##### 修改单词池
+填写回执 (word_sheet/feed_back)，对于每个单词，用0或1作为反馈信息  
+1表示这个单词已经记住了，0表示比较模糊，之后需要复习  
+执行  
+```bash
+python3 main.py set
+```
+
+---
+
+以下为原说明文档  
+
 ## 📃 使用说明
 
 [使用方法](https://github.com/kajweb/dict/wiki/使用方法)  
